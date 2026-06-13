@@ -8,7 +8,8 @@ const nextConfig = {
       "scontent.fbir5-1.fna.fbcdn.net",
       "images.saymedia-content.com",
       "firebasestorage.googleapis.com",
-      "lh3.googleusercontent.com"
+      "lh3.googleusercontent.com",
+      "cdn.sanity.io"
     ]
   },
   env: {
