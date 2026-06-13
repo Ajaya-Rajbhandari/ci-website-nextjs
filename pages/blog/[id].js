@@ -91,15 +91,23 @@ export default function BlogPage({ blog: blogData, user: userData }){
 export async function getServerSideProps(context){
   const blog = await getPost(context.params.id);
 
+  if(!blog)
+    return { notFound: true };
+
   let user;
-  if(blog)
+  if(blog.writtenBy)
     user = await UserService.getUser(blog.writtenBy);
 
   let { createdAt, ...serializableBlog } = blog;
-  createdAt = createdAt.toDate().toString();
+  createdAt = createdAt?.toDate?.().toString() ?? null;
 
-  let { joined_at, ...serializableUser} = user.userData;
-  const joinedAt = new Date(joined_at).toString();
+  let serializableUser = {};
+  let joinedAt = null;
+  if(user?.userData){
+    const { joined_at, ...rest } = user.userData;
+    serializableUser = rest;
+    joinedAt = new Date(joined_at).toString();
+  }
 
   return {
     props: {
