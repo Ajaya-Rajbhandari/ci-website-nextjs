@@ -16,7 +16,7 @@
     "react-dom": "^18.2.0",
     "sanity": "^3.57.0",
     "@sanity/vision": "^3.57.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^4.0.0",
