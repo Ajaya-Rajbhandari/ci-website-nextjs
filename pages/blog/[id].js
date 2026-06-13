@@ -18,7 +18,7 @@ export default function BlogPage({ blog: blogData, user: userData }){
   return (
     <div>
       <Head>
-        <title> Charicha Insitute Blogs | { blogData?.title || "Empty Blog" } </title>
+        <title> Charicha Institute Blogs | { blogData?.title || "Empty Blog" } </title>
         <meta name="description" />
         {/* <meta property="og:image" itemProp="image" content={"landing_image.png"}/> */}
         <link rel="icon" href="/favicon.ico" />

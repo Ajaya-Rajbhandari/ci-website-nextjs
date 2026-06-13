@@ -64,7 +64,7 @@ export default function Login(){
   return (
     <div className={styles.container}>
       <Head>
-        <title> Charicha Insitute </title>
+        <title> Charicha Institute </title>
         <meta name="description" content="Charicha Institute - Login Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

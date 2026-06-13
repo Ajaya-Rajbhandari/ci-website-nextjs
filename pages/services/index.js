@@ -24,7 +24,7 @@ export default function Services() {
   return (
     <div className={styles.container}>
       <Head>
-        <title> Charicha Insitute </title>
+        <title> Charicha Institute </title>
         <meta name="description" content="Charicha Institute Services" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

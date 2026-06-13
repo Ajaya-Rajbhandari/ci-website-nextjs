@@ -58,7 +58,7 @@ export default function Profile({ userData, error }) {
       <Skeleton circle={true} width={100} height={100} />
     ) : userData?.photoURL == "" ? (
       <div className={styles.profileTextImg}>
-        <p> {userData?.fisrt_name[0]} </p>{" "}
+        <p> {userData?.first_name?.[0]} </p>{" "}
       </div>
     ) : (
       <Image
@@ -143,7 +143,7 @@ export default function Profile({ userData, error }) {
       <Skeleton count={3} width={320} />
     ) : (
       <div>
-        {Object.keys(userData?.courses).map((courseId) => {
+        {Object.keys(userData?.courses || {}).map((courseId) => {
           return (
             <div
               key={courseId}
@@ -218,7 +218,7 @@ export default function Profile({ userData, error }) {
   return (
     <div>
       <Head>
-        <title> Charicha Insitute </title>
+        <title> Charicha Institute </title>
         <meta name="description" content="Charicha Institute Blogs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
