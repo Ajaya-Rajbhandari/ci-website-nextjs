@@ -5,14 +5,15 @@ import styles from "../../styles/services/Services.module.css";
 import ServiceCard from "../../components/services/ServiceCard.js";
 import Footer from "../../components/footer/Footer.js";
 
-import { services } from "../../components/services/service_list";
+import { services as servicesFallback } from "../../components/services/service_list";
+import { getServices } from "../../lib/sanity/fetchers";
 
 import { useCallback } from 'react';
 import { loadFull } from 'tsparticles';
 import Particles from 'react-particles';
 import { particleConfig } from '../../lib/particle_config';
 
-export default function Services() {
+export default function Services({ services = servicesFallback }) {
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
@@ -60,4 +61,9 @@ export default function Services() {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const services = await getServices();
+  return { props: { services }, revalidate: 60 };
 }

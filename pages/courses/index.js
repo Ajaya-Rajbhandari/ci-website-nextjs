@@ -13,46 +13,47 @@ import Footer from '../../components/footer/Footer.js';
 
 import { DropdownMenu } from '../../components/DropdownMenu/index.js';
 import { coursesList } from '../../components/course/coursesList.js';
+import { getCourses } from '../../lib/sanity/fetchers';
 
 import { useCallback } from 'react';
 import { loadFull } from 'tsparticles';
 import Particles from 'react-particles';
 import { particleConfig } from '../../lib/particle_config';
 
-const AllCourses = (props) => {
+const AllCourses = ({ courses }) => {
   return (
     <div className={styles.levelCoursesContainer}>
-      { coursesList.map((course) => {
+      { courses.map((course) => {
         return <CourseCard key={"all" + course.id} course={course}/>;
       })}
     </div>
   );
 };
 
-const BeginnerCourses = (props) => {
+const BeginnerCourses = ({ courses }) => {
   return (
     <div className={styles.levelCoursesContainer}>
-      { coursesList.filter((course) => course.level === "Beginner").map((course) => {
+      { courses.filter((course) => course.level === "Beginner").map((course) => {
         return <CourseCard key={course.id} course={course}/>;
       })}
     </div>
   );
 };
 
-const IntermediateCourses = (props) => {
+const IntermediateCourses = ({ courses }) => {
   return (
     <div className={styles.levelCoursesContainer}>
-      { coursesList.filter((course) => course.level === "Intermediate").map((course) => {
+      { courses.filter((course) => course.level === "Intermediate").map((course) => {
         return <CourseCard key={course.id} course={course}/>;
       })}
     </div>
   );
 };
 
-const AdvanceCourses = (props) => {
+const AdvanceCourses = ({ courses }) => {
   return (
     <div className={styles.levelCoursesContainer}>
-      { coursesList.filter((course) => course.level === "Advance").map((course) => {
+      { courses.filter((course) => course.level === "Advance").map((course) => {
         return <CourseCard key={course.id} course={course}/>;
       })}
     </div>
@@ -61,7 +62,7 @@ const AdvanceCourses = (props) => {
 
 
 
-export default function Courses(){
+export default function Courses({ courses = coursesList }){
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
 
@@ -167,24 +168,24 @@ export default function Courses(){
           <div className={
             `${styles.tabContent} ${currentTabIndex == 0 && (previousIndex > currentTabIndex ? styles.tabActiveLeftToRight : styles.tabActiveRightToLeft)}`
           }>
-            <AllCourses/>
+            <AllCourses courses={courses}/>
           </div>
 
           <div className={
             `${styles.tabContent} ${currentTabIndex == 1 && (previousIndex > currentTabIndex ? styles.tabActiveLeftToRight : styles.tabActiveRightToLeft)}`
           }>
-            <BeginnerCourses/>
+            <BeginnerCourses courses={courses}/>
           </div>
 
           <div className={
-            `${styles.tabContent} ${currentTabIndex == 2 && (previousIndex > currentTabIndex ? styles.tabActiveLeftToRight : styles.tabActiveRightToLeft)}`                 
+            `${styles.tabContent} ${currentTabIndex == 2 && (previousIndex > currentTabIndex ? styles.tabActiveLeftToRight : styles.tabActiveRightToLeft)}`
           }>
-            <IntermediateCourses/>
+            <IntermediateCourses courses={courses}/>
           </div>
           <div className={
             `${styles.tabContent} ${currentTabIndex == 3 && (previousIndex > currentTabIndex ? styles.tabActiveLeftToRight : styles.tabActiveRightToLeft)}`
           }>
-            <AdvanceCourses/>
+            <AdvanceCourses courses={courses}/>
           </div>
         </div>
 
@@ -192,7 +193,12 @@ export default function Courses(){
 
       <Footer/>
 
-    </div>    
+    </div>
   );
-  
+
+}
+
+export async function getStaticProps() {
+  const courses = await getCourses();
+  return { props: { courses }, revalidate: 60 };
 }

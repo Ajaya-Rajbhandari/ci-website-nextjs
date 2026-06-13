@@ -1,0 +1,109 @@
+# Sanity CMS — Charicha Institute
+
+This repo now has an **optional** Sanity CMS for the marketing content (courses,
+services, home page, footer/site settings, contact page, navigation).
+
+**Key design point:** the site keeps working with **zero** Sanity configuration.
+Every CMS-backed page falls back to the original hardcoded data until you set the
+Sanity env vars and seed a project. So you can merge this branch safely and turn
+the CMS on later.
+
+The user-generated blog/articles and user accounts stay in **Firebase** — they are
+not part of this CMS.
+
+---
+
+## Architecture
+
+| Piece | Where | Notes |
+|---|---|---|
+| **Sanity Studio** (editing UI) | [`studio/`](studio/) | Separate project. Runs on React 18, so it is **not** embedded in the Next 12 site (which is React 17). Deploy free to `*.sanity.studio`. |
+| **Schemas** | [`studio/schemaTypes/`](studio/schemaTypes/) | `course`, `service` (documents) + `homePage`, `siteSettings`, `contactPage`, `navigation` (singletons). |
+| **Seed data** | [`seed/seed.ndjson`](seed/seed.ndjson) | The current hardcoded content, ready to import. |
+| **Read client** | [`lib/sanity/`](lib/sanity/) | `@sanity/client` + GROQ. Used inside the Next app's `getStaticProps`. |
+
+Wired pages: [`pages/services/index.js`](pages/services/index.js),
+[`pages/courses/index.js`](pages/courses/index.js),
+[`pages/courses/[id].js`](pages/courses/[id].js).
+
+> Not yet wired (next step): the home page, footer and contact page still read
+> their text inline. Their schemas + seed data already exist, so wiring them is
+> just swapping inline strings for `getSiteSettings()` / `getHomePage()` fetchers.
+
+---
+
+## One-time setup
+
+### 1. Create the Sanity project + Studio
+
+```bash
+cd studio
+npm install
+npx sanity login                 # opens browser; sign in / create a Sanity account
+npx sanity init --reconfigure    # creates a project + dataset, writes the project id
+```
+
+Note the **project ID** it prints. Put it in `studio/.env` (copy `.env.example`):
+
+```bash
+SANITY_STUDIO_PROJECT_ID=<your-project-id>
+SANITY_STUDIO_DATASET=production
+```
+
+### 2. Seed the current content
+
+```bash
+# from studio/
+npm run import-seed
+# (equivalent to: npx sanity dataset import ../seed/seed.ndjson production)
+```
+
+This loads the 9 courses, 6 services, and the 4 singleton documents.
+Cover images aren't in the seed — re-upload them per course in the Studio
+(the site falls back to `/george.jpg` until you do).
+
+### 3. Run the Studio
+
+```bash
+npm run dev          # http://localhost:3333
+# when ready to give the team a hosted URL:
+npm run deploy       # publishes to https://<name>.sanity.studio
+```
+
+### 4. Point the website at Sanity
+
+Add to the Next app's `.env.local` (project root):
+
+```bash
+NEXT_PUBLIC_SANITY_PROJECT_ID=<your-project-id>
+NEXT_PUBLIC_SANITY_DATASET=production
+# optional: NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+```
+
+Then in the project root: `nvm use 18 && npm run dev`. The wired pages now read
+from Sanity. Edit a course in the Studio → it shows on `/courses` (ISR
+revalidates every 60s).
+
+If `NEXT_PUBLIC_SANITY_PROJECT_ID` is **unset**, the site uses the hardcoded
+fallback data and nothing breaks.
+
+---
+
+## How the fallback works
+
+[`lib/sanity/client.js`](lib/sanity/client.js) exports `isSanityConfigured`
+(true only when `NEXT_PUBLIC_SANITY_PROJECT_ID` is set). Each fetcher in
+[`lib/sanity/fetchers.js`](lib/sanity/fetchers.js) returns the bundled static
+array when Sanity is unconfigured, empty, or errors — so a misconfigured or
+down CMS can never blank out the site.
+
+GROQ projections in [`lib/sanity/queries.js`](lib/sanity/queries.js) are shaped
+to match the legacy objects exactly (`{id, level, title, coverImg, lessons,
+description, time}`), so no display components needed changes.
+
+## Courses ↔ Firebase enrollment
+
+Course **content** lives in Sanity, but student **enrollment** stays in Firebase
+(`user.courses` keyed by course id). Each Sanity course carries a stable
+`courseId` (`"1"`–`"9"`) used in `/courses/<id>` URLs and enrollment records —
+**don't change it** once students are enrolled, or their enrollments won't match.

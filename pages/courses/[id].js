@@ -3,19 +3,14 @@ import Image from "next/image";
 import Navbar from "../../components/Navbar.js";
 import Footer from "../../components/footer/Footer.js";
 
-import { useRouter } from "next/router";
-import { coursesList } from "../../components/course/coursesList.js";
 import PrimaryButton from "../../components/buttons/PrimaryButton.js";
+import { getCourseById, getCourseIds } from "../../lib/sanity/fetchers";
 
 import useAuth from "../../lib/hooks/Auth.js";
 import { UserService } from "../../lib/service/UserService.js";
 import styles from "../../styles/courses/courses_page.module.css";
 
-export default function CoursePage(props) {
-  const router = useRouter();
-  const { id } = router.query;
-  const course = coursesList.find((course) => course.id == id);
-
+export default function CoursePage({ course }) {
   const { user, userData, registerWithEmailAndPassword } = useAuth();
 
   const CourseCoverImage = (props) => {};
@@ -95,4 +90,18 @@ export default function CoursePage(props) {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticPaths() {
+  const ids = await getCourseIds();
+  return {
+    paths: ids.map((id) => ({ params: { id: String(id) } })),
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const course = await getCourseById(params.id);
+  if (!course) return { notFound: true };
+  return { props: { course }, revalidate: 60 };
 }
