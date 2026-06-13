@@ -13,7 +13,11 @@ import { loadFull } from 'tsparticles';
 import Particles from 'react-particles';
 import { particleConfig } from '../../lib/particle_config';
 
-export default function Contact(){
+import { getContactPage } from '../../lib/sanity/fetchers';
+import { contactPageFallback } from '../../lib/sanity/fallbacks';
+
+export default function Contact({ page = contactPageFallback }){
+  const contact = page.contact || {};
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
@@ -36,8 +40,8 @@ export default function Contact(){
         <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10'>
           <div className='px-8'>
-            <h2 className='text-2xl text-white'> Contact Us </h2>
-            <p className='text-base text-white font-light'> Thank you for visiting our website. If you have any questions or would like to schedule a tour of our facilities, please don&apos;t hesitate to reach out to us. </p>
+            <h2 className='text-2xl text-white'> {page.title} </h2>
+            <p className='text-base text-white font-light'> {page.description} </p>
           </div>
 
 
@@ -59,12 +63,12 @@ export default function Contact(){
             <p className={'text-white text-sm font-light'}> We look forward to hearing from you and helping you learn more about the exciting opportunities available at our computer institute. </p>
 
 	    <div className='flex flex-col gap-2'>
-              <p className={'flex text-white text-sm font-light items-center gap-2'}> <AiFillPhone color="blue"/>  +977 9817-388966 </p>
-              <p className={'flex text-white text-sm font-light items-center gap-2'}> <ImLocation color="red"/> Belbari - 11, Laxmimarga </p>            
+              <p className={'flex text-white text-sm font-light items-center gap-2'}> <AiFillPhone color="blue"/>  {contact.phone} </p>
+              <p className={'flex text-white text-sm font-light items-center gap-2'}> <ImLocation color="red"/> {contact.address} </p>
             </div>
 
 	    <div className='w-full h-full rounded-2xl overflow-clip shadow-md'>
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14263.539457521121!2d87.4492403!3d26.6521686!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xec11a5cb93e0fac1!2sCharicha%20Institute!5e0!3m2!1sen!2suk!4v1672662347634!5m2!1sen!2suk" width="100%" height="100%" style={{'border': 0}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe src={page.mapEmbedUrl} width="100%" height="100%" style={{'border': 0}} allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
           </div>
@@ -79,4 +83,9 @@ export default function Contact(){
 
   );
 
+}
+
+export async function getStaticProps() {
+  const page = await getContactPage();
+  return { props: { page }, revalidate: 60 };
 }

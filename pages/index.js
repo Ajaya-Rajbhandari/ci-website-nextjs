@@ -12,9 +12,10 @@ import { particleConfig } from '../lib/particle_config';
 import ReactPlayer from 'react-player';
 import Stories from '../components/home/Stories';
 import AppStore from '../components/home/AppStore';
-import { useRouter } from 'next/router';
+import { getHomePage } from '../lib/sanity/fetchers';
+import { homePageFallback } from '../lib/sanity/fallbacks';
 
-export default function Home() {
+export default function Home({ home = homePageFallback }) {
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
@@ -37,7 +38,7 @@ export default function Home() {
         <Navbar path={'/'}/>
         <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
 	<div className='lg:h-20'></div>
-        <Hero/>
+        <Hero hero={home.hero}/>
 
 	<div className='flex justify-center'>
 	  <div className='rounded-2xl overflow-clip shadow-lg w-full max-w-2xl h-60 sm:h-96 mx-6'>
@@ -45,14 +46,14 @@ export default function Home() {
               width={'100%'}
               height={'100%'}
               className='w-full h-full'
-              url='https:www.youtube.com/watch?v=lvWUO2YTe-M'/>
+              url={home.featureVideoUrl}/>
           </div>
         </div>
-	<p className='mt-4 text-center text-[24px] text-white'> See us in Action </p>            
+	<p className='mt-4 text-center text-[24px] text-white'> See us in Action </p>
 	<div className='h-40'></div>
 
-        <Stories/>
-        <AppStore/>
+        <Stories stories={home.stories}/>
+        <AppStore appPromo={home.appPromo}/>
 
 	<div className='h-20'></div>
       </main>
@@ -64,4 +65,9 @@ export default function Home() {
 
     </>
   );
+}
+
+export async function getStaticProps() {
+  const home = await getHomePage();
+  return { props: { home }, revalidate: 60 };
 }

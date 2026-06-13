@@ -22,13 +22,19 @@ not part of this CMS.
 | **Seed data** | [`seed/seed.ndjson`](seed/seed.ndjson) | The current hardcoded content, ready to import. |
 | **Read client** | [`lib/sanity/`](lib/sanity/) | `@sanity/client` + GROQ. Used inside the Next app's `getStaticProps`. |
 
-Wired pages: [`pages/services/index.js`](pages/services/index.js),
-[`pages/courses/index.js`](pages/courses/index.js),
-[`pages/courses/[id].js`](pages/courses/[id].js).
+Wired pages / components:
+- [`pages/services/index.js`](pages/services/index.js) — `getServices()` (ISR)
+- [`pages/courses/index.js`](pages/courses/index.js) — `getCourses()` (ISR)
+- [`pages/courses/[id].js`](pages/courses/[id].js) — `getCourseById()` (SSG)
+- [`pages/index.js`](pages/index.js) — `getHomePage()` → hero / stories / app promo / feature video
+- [`pages/contact/index.js`](pages/contact/index.js) — `getContactPage()` → title / description / contact / map
+- [`components/footer/Footer.js`](components/footer/Footer.js) — global, driven by
+  [`useSiteSettings()`](lib/sanity/useSiteSettings.js). It is rendered on every
+  page and can't use `getStaticProps`, so it renders the static fallback on the
+  server / first client render (no hydration mismatch) and swaps in CMS data
+  after mount.
 
-> Not yet wired (next step): the home page, footer and contact page still read
-> their text inline. Their schemas + seed data already exist, so wiring them is
-> just swapping inline strings for `getSiteSettings()` / `getHomePage()` fetchers.
+All copy fallbacks live in [`lib/sanity/fallbacks.js`](lib/sanity/fallbacks.js).
 
 ---
 
