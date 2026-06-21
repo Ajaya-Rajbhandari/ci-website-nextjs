@@ -7,12 +7,6 @@ export default defineType({
   fields: [
     defineField({ name: 'orgName', title: 'Organization name', type: 'string' }),
     defineField({
-      name: 'logo',
-      title: 'Logo',
-      type: 'image',
-      options: { hotspot: true },
-    }),
-    defineField({
       name: 'footerDescription',
       title: 'Footer description',
       type: 'text',
@@ -25,19 +19,8 @@ export default defineType({
       type: 'array',
       of: [{ type: 'navLink' }],
     }),
-    defineField({
-      name: 'socials',
-      title: 'Social links',
-      type: 'array',
-      of: [{ type: 'navLink' }],
-    }),
     defineField({ name: 'playStoreLink', title: 'Play Store link', type: 'url' }),
     defineField({ name: 'copyright', title: 'Copyright text', type: 'string' }),
-    defineField({
-      name: 'mapEmbedUrl',
-      title: 'Google Maps embed URL',
-      type: 'url',
-    }),
   ],
   preview: {
     prepare: () => ({ title: 'Site Settings' }),

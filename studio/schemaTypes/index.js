@@ -1,6 +1,7 @@
 // Document types (repeatable)
 import course from './documents/course';
 import service from './documents/service';
+import post from './documents/post';
 
 // Singletons (one document each)
 import siteSettings from './singletons/siteSettings';
@@ -19,6 +20,7 @@ export const schemaTypes = [
   // documents
   course,
   service,
+  post,
   // singletons
   siteSettings,
   homePage,

@@ -15,11 +15,13 @@ import { DropdownMenu } from "../components/DropdownMenu/index.js";
 
 import NavItem from "./Navbar/NavItem";
 import useAuth from "../lib/hooks/Auth.js";
+import { useNavigation } from "../lib/sanity/useNavigation.js";
 
 export default function Navbar({ path }) {
   const isDesktop = useMediaQuery({ minWidth: SCREENS.lg });
   const [showMenu, setShowMenu] = useState(false);
   const { user, userData, logout } = useAuth();
+  const { headerLinks } = useNavigation();
 
   const dropdownList = [
     {
@@ -71,6 +73,7 @@ export default function Navbar({ path }) {
         setShowMenu={setShowMenu}
         dropdownList={dropdownList}
         path={path}
+        headerLinks={headerLinks}
       />
     </nav>
   );
@@ -84,6 +87,7 @@ const NavList = ({
   setShowMenu,
   dropdownList,
   path,
+  headerLinks,
 }) => {
   return (
   <ul
@@ -99,11 +103,9 @@ const NavList = ({
       />         
        </div>)}
 
-    <NavItem path={path} to={"/"} label={"Home"} />
-    <NavItem path={path} to={"/courses"} label={"Courses"} />
-    <NavItem path={path} to={"/services"} label={"Services"} />
-    <NavItem path={path} to={"/blog"} label={"Blog"} />
-    <NavItem path={path} to={"/contact"} label={"Contact"} />
+    {(headerLinks || []).map((link) => (
+      <NavItem key={link.href + link.label} path={path} to={link.href} label={link.label} />
+    ))}
 
     <Marginer horizontal="20px" />
 

@@ -8,8 +8,9 @@ Every CMS-backed page falls back to the original hardcoded data until you set th
 Sanity env vars and seed a project. So you can merge this branch safely and turn
 the CMS on later.
 
-The user-generated blog/articles and user accounts stay in **Firebase** — they are
-not part of this CMS.
+User accounts stay in **Firebase**. The blog is **hybrid**: user-written articles
+stay in Firebase, while the team can also publish editorial posts (`post` type) in
+Sanity — both are merged on `/blog`, newest first. See "Hybrid blog" below.
 
 ---
 
@@ -18,7 +19,7 @@ not part of this CMS.
 | Piece | Where | Notes |
 |---|---|---|
 | **Sanity Studio** (editing UI) | [`studio/`](studio/) | Separate project. Runs on React 18, so it is **not** embedded in the Next 12 site (which is React 17). Deploy free to `*.sanity.studio`. |
-| **Schemas** | [`studio/schemaTypes/`](studio/schemaTypes/) | `course`, `service` (documents) + `homePage`, `siteSettings`, `contactPage`, `navigation` (singletons). |
+| **Schemas** | [`studio/schemaTypes/`](studio/schemaTypes/) | `course`, `service`, `post` (documents) + `homePage`, `siteSettings`, `contactPage`, `navigation` (singletons). |
 | **Seed data** | [`seed/seed.ndjson`](seed/seed.ndjson) | The current hardcoded content, ready to import. |
 | **Read client** | [`lib/sanity/`](lib/sanity/) | `@sanity/client` + GROQ. Used inside the Next app's `getStaticProps`. |
 
@@ -33,6 +34,39 @@ Wired pages / components:
   page and can't use `getStaticProps`, so it renders the static fallback on the
   server / first client render (no hydration mismatch) and swaps in CMS data
   after mount.
+- [`components/Navbar.js`](components/Navbar.js) — global header nav, driven by
+  [`useNavigation()`](lib/sanity/useNavigation.js) (`navigation.headerLinks`).
+  Same render strategy as the footer: static fallback first, CMS data after mount.
+- [`pages/blog/index.js`](pages/blog/index.js) — **hybrid** (see below).
+
+---
+
+## Hybrid blog
+
+`/blog` merges two sources, newest first:
+
+- **Firebase** — user-written articles (`ArticleService.listPublishedArticles()`),
+  authored in-app with EditorJS. Author resolved from the Firebase user record.
+- **Sanity** — editorial `post` documents authored by the team in the Studio.
+  Inline author (`authorName` / `authorImage`), Portable Text body.
+
+How it fits together:
+- [`getBlogPosts()`](lib/sanity/fetchers.js) returns `[]` when Sanity is
+  unconfigured, so with no CMS the blog simply shows the Firebase articles —
+  nothing breaks (consistent with the rest of the integration).
+- [`pages/blog/index.js`](pages/blog/index.js) `getServerSideProps` normalises
+  both sources with a `source` discriminator + `sortTime`, then sorts by date.
+- [`components/blog/BlogCard.js`](components/blog/BlogCard.js) branches on
+  `blog.source` (Firebase keeps its client-side author fetch; Sanity uses the
+  inline author).
+- [`pages/blog/[id].js`](pages/blog/[id].js) resolves a slug by trying Firebase
+  (`getPost`) first, then Sanity (`getBlogPostBySlug`); 404 if neither matches.
+  Sanity bodies render via [`PortableBody`](components/blog/PortableBody.js)
+  (`@portabletext/react`), Firebase bodies via `EditorJSRenderer`.
+
+Posts are ordered by `publishedAt` — set it when publishing. The body uses
+Portable Text (`block` + inline `image`); embedded images resolve through
+[`urlFor()`](lib/sanity/image.js).
 
 All copy fallbacks live in [`lib/sanity/fallbacks.js`](lib/sanity/fallbacks.js).
 

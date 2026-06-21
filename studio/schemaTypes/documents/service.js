@@ -19,11 +19,6 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'icon',
-      title: 'Icon',
-      type: 'image',
-    }),
-    defineField({
       name: 'order',
       title: 'Display order',
       type: 'number',

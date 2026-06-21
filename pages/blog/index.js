@@ -7,8 +7,8 @@ import TopBlog from '../../components/blog/TopBlog.js';
 import BlogCard from '../../components/blog/BlogCard.js';
 
 import Footer from '../../components/footer/Footer.js';
-import { getPostsFirestore } from '../api/posts/index.js';
 import { ArticleService } from '../../lib/service/ArticleService.js';
+import { getBlogPosts } from '../../lib/sanity/fetchers.js';
 
 import { useCallback } from 'react';
 import { loadFull } from 'tsparticles';
@@ -45,7 +45,7 @@ export default function Contact(props){
         <div style={{height: "40px"}}></div>
         <div className={styles["cards-container"]}>
           {
-            props.posts.map((blog) => <BlogCard key={blog.id} blog={blog}/>)
+            props.posts.map((blog) => <BlogCard key={blog.source + blog.id} blog={blog}/>)
           }
         </div>
           <div style={{height: "40px"}}></div>
@@ -60,15 +60,32 @@ export default function Contact(props){
 }
 
 export async function getServerSideProps(context){
-  const { listPublishedArticles } = ArticleService;
-  let res = await listPublishedArticles();
+  // Merge the Firebase user articles with the Sanity editorial posts, then sort
+  // newest-first. Each source is normalised with a `source` discriminator and a
+  // `sortTime` (ms epoch) so BlogCard can render the right shape.
+  const [fbRes, cmsRes] = await Promise.all([
+    ArticleService.listPublishedArticles().catch(() => []),
+    getBlogPosts(),
+  ]);
 
-  res = JSON.parse(JSON.stringify(res));
+  const firebasePosts = JSON.parse(JSON.stringify(fbRes || [])).map((a) => ({
+    ...a,
+    source: 'firebase',
+    sortTime: a.createdAt?.seconds
+      ? a.createdAt.seconds * 1000
+      : (a.createdAt ? new Date(a.createdAt).getTime() : 0),
+  }));
 
-  const posts = {
-    posts: res
-  };
+  const cmsPosts = (cmsRes || []).map((p) => ({
+    ...p,
+    source: 'sanity',
+    id: p.slug,
+    sortTime: p.publishedAt ? new Date(p.publishedAt).getTime() : 0,
+  }));
+
+  const posts = [...firebasePosts, ...cmsPosts].sort((a, b) => b.sortTime - a.sortTime);
+
   return {
-    props: posts
+    props: { posts }
   };
 }
