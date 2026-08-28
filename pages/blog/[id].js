@@ -6,7 +6,7 @@ import { FaFacebook, FaInstagram, FaDotCircle } from 'react-icons/fa';
 import { AiFillHeart } from 'react-icons/ai';
 
 import styles from './blogpage.module.css';
-import EditorJSRenderer from '../../components/EditorJSRenderer';
+import ArticleRenderer from '../../components/ArticleRenderer';
 import PortableBody from '../../components/blog/PortableBody.js';
 
 import { getPost } from '../api/posts/[postId].js';
@@ -55,7 +55,7 @@ function FirebaseBlogPage({ blog: blogData, user: userData }){
 
         <div className={styles.contentContainer}>
           <div className={styles.content}>
-            <EditorJSRenderer data={blogData.body}/>
+            <ArticleRenderer data={blogData.body}/>
           </div>
           <div className={styles.rightContents}>
             <Image alt={userData?.first_name + "'s Profile Picture"}

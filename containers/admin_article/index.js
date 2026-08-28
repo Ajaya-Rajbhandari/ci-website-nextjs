@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import useAuth from "../../lib/hooks/Auth";
 import { ArticleService } from "../../lib/service/ArticleService";
 import queryClient from "../../lib/queryclient";
-import EditorJSRenderer from "../../components/EditorJSRenderer";
+import ArticleRenderer from "../../components/ArticleRenderer";
 
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -83,7 +83,7 @@ export default function ArticleManagementContainer() {
             >
               <IoIosArrowBack className="text-4xl" /> Back
             </button>
-            <EditorJSRenderer data={viewArticle.body} />
+            <ArticleRenderer data={viewArticle.body} />
           </div>
         )}
 

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import EditorJSRenderer from '../../components/EditorJSRenderer';
+import ArticleRenderer from '../../components/ArticleRenderer';
 
 import { pageContext } from './index';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -15,7 +15,7 @@ export default function ViewArticleContainer({article}){
       }}>
         <IoIosArrowBack className='text-4xl'/> Back
       </button>     
-      <EditorJSRenderer data={article.body}/>
+      <ArticleRenderer data={article.body}/>
     </div>
   );
 }

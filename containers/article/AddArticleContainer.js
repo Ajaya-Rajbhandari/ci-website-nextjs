@@ -8,11 +8,12 @@ import useAuth from "../../lib/hooks/Auth";
 import queryClient from "../../lib/queryclient";
 import { pageContext } from "./index";
 import { ArticleService } from "../../lib/service/ArticleService";
+import { isEmptyDocument } from "../../lib/editor/serialize";
 import { UserService } from '../../lib/service/UserService';
 import MediaSelectModal from "../media/MediaSelectModal";
 import { IoIosArrowBack } from "react-icons/io";
 
-let ReactEditorJS = dynamic(() => import("../../components/ReactEditorJS"), { ssr: false});
+const TiptapEditor = dynamic(() => import("../../components/TiptapEditor"), { ssr: false });
 
 export default function AddArticleContainer({ article }) {
   const [title, setTitle] = useState(article?.title);
@@ -49,7 +50,7 @@ export default function AddArticleContainer({ article }) {
     // Get editorJs images
     const currentImages = [];
     document
-      .querySelectorAll(".image-tool__image-picture")
+      .querySelectorAll(".ProseMirror img")
       .forEach((x) => currentImages.push(x.src));
 
     if (images.length > currentImages.length) {
@@ -89,7 +90,7 @@ export default function AddArticleContainer({ article }) {
       return;
     }
 
-    if (rawContentState.blocks.length <= 0) {
+    if (isEmptyDocument(rawContentState)) {
       setFieldError("Please add some content!");
       return;
     }
@@ -205,8 +206,8 @@ export default function AddArticleContainer({ article }) {
 
       <div className="w-full h-full rounded-xl flex justify-center items-center bg-timbergreen">
         <div className="w-full h-full overflow-scroll-y p-4 rounded-xl prose dark:prose-invert">
-          {ReactEditorJS && (
-            <ReactEditorJS
+          {TiptapEditor && (
+            <TiptapEditor
               userId={user.uid}
               className="prose"
               images={images}
