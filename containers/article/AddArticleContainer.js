@@ -4,9 +4,6 @@ import dynamic from "next/dynamic";
 
 import { useMutation } from "@tanstack/react-query";
 
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 import useAuth from "../../lib/hooks/Auth";
 import queryClient from "../../lib/queryclient";
 import { pageContext } from "./index";
