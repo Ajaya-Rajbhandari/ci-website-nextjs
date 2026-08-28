@@ -14,10 +14,7 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { ImGoogle2 } from 'react-icons/im';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
 export default function Login(){
   const [fieldError, setFieldError] = useState(null);
@@ -26,14 +23,6 @@ export default function Login(){
 
   const {  error, fetching, loading, isLoggedIn, loginWithGoogle, loginWithEmailAndPassword } = useAuth();
   const [passwordShow, setPasswordShow] = useState(false);
-
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);  
 
   const router = useRouter();
 
@@ -68,7 +57,7 @@ export default function Login(){
         <meta name="description" content="Charicha Institute - Login Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>
+      <ParticlesBackground/>
       <main className={'flex w-full min-h-screen h-full justify-center items-center bg-gradient-[-45deg] from-eggblue to-slategray'}>
           <form className={styles.loginContainer} onSubmit={onSubmitHandler}>
             <div className={'min-w-md w-full h-full flex justify-center items-center'}>

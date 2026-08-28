@@ -4,26 +4,16 @@ import Navbar from '../components/Navbar.js';
 import Hero from '../components/home/Hero.js';
 import Footer from '../components/footer/Footer.js';
 
-import { useCallback, useEffect } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../lib/particle_config';
+import { useEffect } from 'react';
 
 import ReactPlayer from 'react-player';
 import Stories from '../components/home/Stories';
 import AppStore from '../components/home/AppStore';
 import { getHomePage } from '../lib/sanity/fetchers';
 import { homePageFallback } from '../lib/sanity/fallbacks';
+import ParticlesBackground from '../components/ParticlesBackground';
 
 export default function Home({ home = homePageFallback }) {
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);
-
   return (
     <>
     <div className={styles.container}>
@@ -36,7 +26,7 @@ export default function Home({ home = homePageFallback }) {
 
       <main className={'bg-gradient-[-45deg] from-eggblue to-slategray'}>
         <Navbar path={'/'}/>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
+        <ParticlesBackground/>
 	<div className='lg:h-20'></div>
         <Hero hero={home.hero}/>
 
@@ -46,7 +36,7 @@ export default function Home({ home = homePageFallback }) {
               width={'100%'}
               height={'100%'}
               className='w-full h-full'
-              url={home.featureVideoUrl}/>
+              src={home.featureVideoUrl}/>
           </div>
         </div>
 	<p className='mt-4 text-center text-[24px] text-white'> See us in Action </p>

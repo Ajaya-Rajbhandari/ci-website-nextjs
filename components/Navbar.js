@@ -51,14 +51,12 @@ export default function Navbar({ path }) {
       }
     >
       <Link href="/">
-        <a>
-          <Image
-            src="/ci_logo_light_blue.png"
-            alt="Charicha Institute Logo"
-            width={140}
-            height={50}
-          />
-        </a>
+        <Image
+          src="/ci_logo_light_blue.png"
+          alt="Charicha Institute Logo"
+          width={140}
+          height={50}
+        />
       </Link>
 
       {!isDesktop && !showMenu && (
@@ -111,24 +109,22 @@ const NavList = ({
 
     {user === null ? (
       <div className={`flex gap-4`}>
-        <Link className="" href="/login">
-          <a
-            className={
-              "px-8 py-2 h-10 w-32 flex justify-center items-center bg-brightaqua hover:bg-slategray text-white rounded-3xl transition-all drop-shadow-md"
-            }
-          >
-            Login
-          </a>
+        <Link
+          href="/login"
+          className={
+            "px-8 py-2 h-10 w-32 flex justify-center items-center bg-brightaqua hover:bg-slategray text-white rounded-3xl transition-all drop-shadow-md"
+          }
+        >
+          Login
         </Link>
 
-        <Link className={styles.navitem} href="/register">
-          <a
-            className={
-              "px-8 py-2 h-10 w-32 flex justify-center items-center bg-slategray hover:bg-brightaqua text-white rounded-3xl transition-all drop-shadow-md"
-            }
-          >
-            Register
-          </a>
+        <Link
+          href="/register"
+          className={
+            "px-8 py-2 h-10 w-32 flex justify-center items-center bg-slategray hover:bg-brightaqua text-white rounded-3xl transition-all drop-shadow-md"
+          }
+        >
+          Register
         </Link>
       </div>
     ) : (

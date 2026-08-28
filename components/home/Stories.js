@@ -4,7 +4,7 @@ import { homePageFallback } from '../../lib/sanity/fallbacks';
 function StoryVideo({ url }) {
   return (
     <div className='rounded-2xl overflow-clip shadow-lg w-full max-w-2xl h-60 sm:h-96 mx-6'>
-      <ReactPlayer width={'100%'} height={'100%'} className='w-full h-full' url={url}/>
+      <ReactPlayer width={'100%'} height={'100%'} className='w-full h-full' src={url}/>
     </div>
   );
 }

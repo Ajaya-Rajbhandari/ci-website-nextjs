@@ -101,8 +101,8 @@ export default function MediaContainer(){
       <button onClick={onUpload}
               className={`text-white bg-eggblue hover:bg-greenpea disabled:bg-riverbed  
                           w-full py-4 mt-5 rounded-full shadow-md transition-all 
-                          ${addMutation.isLoading ? 'animate-pulse' : ''}`}
-              disabled={addMutation.isLoading || !file}> Upload </button>
+                          ${addMutation.isPending ? 'animate-pulse' : ''}`}
+              disabled={addMutation.isPending || !file}> Upload </button>
     </div>
   );
   

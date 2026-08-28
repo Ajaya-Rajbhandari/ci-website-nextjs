@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function CourseCard(props) {
   return (
-    <Link href={"/courses/" + props.course.id} passHref>
+    <Link href={"/courses/" + props.course.id}>
 
       <div className={styles.courseCard} onClick={() => { }}>
 	<div className={styles.courseImg}>

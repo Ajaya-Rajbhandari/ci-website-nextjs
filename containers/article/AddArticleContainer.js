@@ -236,9 +236,9 @@ export default function AddArticleContainer({ article }) {
       <button
         className={`text-white bg-eggblue hover:bg-greenpea disabled:bg-riverbed  
                           w-full py-4 mt-5 rounded-full shadow-md transition-all 
-                          ${mutation.isLoading ? "animate-pulse" : ""}`}
+                          ${mutation.isPending ? "animate-pulse" : ""}`}
         onClick={onAddClick}
-        disabled={mutation.isLoading}
+        disabled={mutation.isPending}
       >
         {isEdit ? "Edit" : "Submit"} Article
       </button>

@@ -14,11 +14,8 @@ import Footer from '../../components/footer/Footer.js';
 import { DropdownMenu } from '../../components/DropdownMenu/index.js';
 import { coursesList } from '../../components/course/coursesList.js';
 import { getCourses } from '../../lib/sanity/fetchers';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
 
 const AllCourses = ({ courses }) => {
   return (
@@ -66,14 +63,6 @@ export default function Courses({ courses = coursesList }){
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
 
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -85,7 +74,7 @@ export default function Courses({ courses = coursesList }){
 
       <main className={'bg-gradient-[-45deg] from-eggblue to-slategray'}>
         <Navbar path={'/courses'}/>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
+        <ParticlesBackground/>
 
 	<div className='w-full flex flex-col justify-center items-center'>
           <h2 className='text-[40px] text-white'> Our Courses </h2>

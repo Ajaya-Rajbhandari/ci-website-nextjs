@@ -7,21 +7,10 @@ import Footer from "../../components/footer/Footer.js";
 
 import { services as servicesFallback } from "../../components/services/service_list";
 import { getServices } from "../../lib/sanity/fetchers";
+import ParticlesBackground from '../../components/ParticlesBackground';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
 
 export default function Services({ services = servicesFallback }) {
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);
-
   return (
     <div className={styles.container}>
       <Head>
@@ -32,7 +21,7 @@ export default function Services({ services = servicesFallback }) {
 
       <main className={"bg-gradient-[-45deg] from-eggblue to-slategray pb-10"}>
         <Navbar path={'/services'}/>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
+        <ParticlesBackground/>
 
         <div className="px-8 md:px-10 xl:px-20 2xl:px-48 mt-10">
           <h2 className="text-2xl text-white"> Our Services </h2>

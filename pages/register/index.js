@@ -13,10 +13,7 @@ import PuffLoader from 'react-spinners/PuffLoader';
 
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
 
 export default function Register(){
@@ -31,15 +28,6 @@ export default function Register(){
   const email = useRef();
   const password = useRef();
   const confirmPassword = useRef();
-
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);    
-
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -86,7 +74,7 @@ export default function Register(){
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={'flex w-full min-h-screen h-full justify-center items-center bg-gradient-[-45deg] from-eggblue to-slategray'}>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>
+        <ParticlesBackground/>
 
         { <form className={styles.loginContainer} onSubmit={onSubmitHandler}>
             <div className={'min-w-md w-full h-full flex justify-center items-center'}>

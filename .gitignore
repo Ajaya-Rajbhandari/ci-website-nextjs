@@ -40,3 +40,7 @@ yarn-error.log*
 *.*#
 .log
 emacs_backtrace.txt
+# editor swap files
+*.swp
+*.swo
+*~

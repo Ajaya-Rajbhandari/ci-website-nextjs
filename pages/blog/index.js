@@ -9,21 +9,10 @@ import BlogCard from '../../components/blog/BlogCard.js';
 import Footer from '../../components/footer/Footer.js';
 import { ArticleService } from '../../lib/service/ArticleService.js';
 import { getBlogPosts } from '../../lib/sanity/fetchers.js';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
 
 export default function Contact(props){
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);
-
 
   return (
     <div className={styles.container}>
@@ -36,7 +25,7 @@ export default function Contact(props){
 
       <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar path={'/blog'}/>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>
+        <ParticlesBackground/>
 
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10'>
           {/* <TopBlog/> */}

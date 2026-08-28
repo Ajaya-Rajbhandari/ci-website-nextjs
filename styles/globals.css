@@ -63,8 +63,7 @@ a {
 .ce-settings,
 .ce-settings__button,
 .cdx-button,
-.ce-popover,
- {
+.ce-popover {
   background: white;
   color: black;
 }

@@ -11,13 +11,13 @@ const SimpleImageRenderer = ({data, style, classNames, config}) => {
   if (typeof data === 'string') content = data;
   else if (typeof data === 'object' && data?.url && typeof data.url === 'string') content = data.url;
 
-  // eslint-disable-next-line @next/next/no-img-element
+   
   let figureClass = `relative flex flex-col justify-center items-center my-4 max-w-full h-[300px] overflow-hidden`;
 
   figureClass += data?.withBackground ? ` bg-riverbed` : ``;
   figureClass += data?.withBorder ? ` border-2` : ` border-none;`;
 
-  const imgClass = `max-w-full max-h-[300px]`;
+  let imgClass = `max-w-full max-h-[300px]`;
   imgClass += data?.stretched ? ` w-full` : ``;
 
   const figCaptionClass = `absolute top-[8px] right-[8px] py-2 px-4 text-xs bg-[#2d333a] text-white  rounded-md`;

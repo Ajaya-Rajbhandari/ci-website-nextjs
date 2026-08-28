@@ -8,24 +8,13 @@ import { ImLocation } from 'react-icons/im';
 import Footer from '../../components/footer/Footer.js';
 import PrimaryButton from '../../components/buttons/PrimaryButton.js';
 
-import { useCallback } from 'react';
-import { loadFull } from 'tsparticles';
-import Particles from 'react-particles';
-import { particleConfig } from '../../lib/particle_config';
 
 import { getContactPage } from '../../lib/sanity/fetchers';
 import { contactPageFallback } from '../../lib/sanity/fallbacks';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
 export default function Contact({ page = contactPageFallback }){
   const contact = page.contact || {};
-  const particlesInit = useCallback(async engine => {
-    await loadFull(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async container => {
-    console.log(container);
-  }, []);  
-
   return (
     <div className={styles.container}>
       <Head>
@@ -37,7 +26,7 @@ export default function Contact({ page = contactPageFallback }){
 
       <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar path='/contact'/>
-        <Particles init={particlesInit} loaded={particlesLoaded} options={particleConfig}/>        
+        <ParticlesBackground/>
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10'>
           <div className='px-8'>
             <h2 className='text-2xl text-white'> {page.title} </h2>

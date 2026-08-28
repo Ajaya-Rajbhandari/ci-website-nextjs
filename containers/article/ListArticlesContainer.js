@@ -31,6 +31,9 @@ export default function ArticleContainer() {
       },
       enabled: isLoggedIn,
       refetchOnMount: true,
+      initialPageParam: undefined,
+      getNextPageParam: (lastPage) =>
+        lastPage?.length ? { lastDoc: lastPage[lastPage.length - 1] } : undefined,
     });
 
   const deleteMutation = useMutation({
