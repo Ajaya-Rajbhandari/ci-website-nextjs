@@ -113,7 +113,7 @@ export default function TiptapEditor({ data, images, innerRef, userId }: TiptapE
     immediatelyRender: false, // required under SSR
     editorProps: {
       attributes: {
-        class: 'prose dark:prose-invert max-w-none focus:outline-none min-h-[300px]'
+        class: 'prose dark:prose-invert max-w-none focus:outline-hidden min-h-[300px]'
       }
     }
   });

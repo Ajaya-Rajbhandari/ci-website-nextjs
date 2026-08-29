@@ -62,14 +62,14 @@ export default function RegisterContent() {
   const router = useRouter();
   if(user != null){
     router.push("/");
-    return <div className='flex w-full min-h-screen h-full justify-center items-center bg-gradient-[-45deg] from-eggblue to-slategray'>
+    return <div className='flex w-full min-h-screen h-full justify-center items-center bg-linear-[-45deg] from-eggblue to-slategray'>
              <PuffLoader className='text-eggblue'/>
            </div>;
   }
     
   return (
     <div className={styles.container}>
-      <main className={'flex w-full min-h-screen h-full justify-center items-center bg-gradient-[-45deg] from-eggblue to-slategray'}>
+      <main className={'flex w-full min-h-screen h-full justify-center items-center bg-linear-[-45deg] from-eggblue to-slategray'}>
         <ParticlesBackground/>
 
         { <form className={styles.loginContainer} onSubmit={onSubmitHandler}>

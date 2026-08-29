@@ -38,7 +38,7 @@ function FirebaseBlogPage({ blog: blogData, user: userData }: { blog: BlogListIt
     <div>
 
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar/>
 
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10 text-white'>
@@ -102,7 +102,7 @@ function SanityBlogPage({ blog }: { blog: BlogListItem }){
   return (
     <div>
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar/>
 
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10 text-white'>

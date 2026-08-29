@@ -69,7 +69,7 @@ export default function CoursesContent({ courses = coursesList }: { courses?: Co
     <div className={styles.container}>
 
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray'}>
         <Navbar path={'/courses'}/>
         <ParticlesBackground/>
 

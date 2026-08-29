@@ -55,7 +55,7 @@ export default async function BlogPage(){
     <div className={styles.container}>
 
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar path={'/blog'}/>
         <ParticlesBackground/>
 

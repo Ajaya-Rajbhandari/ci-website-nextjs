@@ -164,7 +164,7 @@ export default function AddArticleContainer({ article }: { article?: Article | n
         name="title"
         type="text"
         placeholder="Article Title"
-        className="w-full py-3 mt-4 px-4 rounded-lg outline-none focus:shadow-outline shadow"
+        className="w-full py-3 mt-4 px-4 rounded-lg outline-hidden focus:shadow-outline shadow-sm"
       />
 
       {modalOpen && (

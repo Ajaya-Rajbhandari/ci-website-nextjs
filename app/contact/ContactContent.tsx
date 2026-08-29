@@ -20,7 +20,7 @@ export default function ContactContent({ page = contactPageFallback }: { page?: 
     <div className={styles.container}>
 
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray pb-10'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray pb-10'}>
         <Navbar path='/contact'/>
         <ParticlesBackground/>
 	<div className='px-8 md:px-10 xl:px-20 2xl:px-48 mt-10'>

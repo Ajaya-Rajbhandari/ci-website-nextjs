@@ -27,7 +27,7 @@ export default function AppStore({ appPromo = homePageFallback.appPromo }) {
           <div className="mt-2 flex gap-4">
             <input
               ref={emailRef}
-              className="w-full px-4 py-2 border-full border-[2px] border-white/60 bg-gray-50/60 rounded-xl outline-none transition-all"
+              className="w-full px-4 py-2 border-full border-2 border-white/60 bg-gray-50/60 rounded-xl outline-hidden transition-all"
               name=""
               type="text"
             />

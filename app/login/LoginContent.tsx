@@ -54,7 +54,7 @@ export default function LoginContent() {
   return (
     <div className={styles.container}>
       <ParticlesBackground/>
-      <main className={'flex w-full min-h-screen h-full justify-center items-center bg-gradient-[-45deg] from-eggblue to-slategray'}>
+      <main className={'flex w-full min-h-screen h-full justify-center items-center bg-linear-[-45deg] from-eggblue to-slategray'}>
           <form className={styles.loginContainer} onSubmit={onSubmitHandler}>
             <div className={'min-w-md w-full h-full flex justify-center items-center'}>
               <Image className="shadow-md" alt='charicha pc hero image' src='/ci_pc.svg' width={'500'} height={'300'}/>

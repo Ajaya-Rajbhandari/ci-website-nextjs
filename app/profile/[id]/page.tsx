@@ -224,7 +224,7 @@ function ProfileView({ userData, error }: { userData?: UserData | null; error?: 
     <div>
 
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray'}>
         <Navbar />
         {isError && <div className='min-h-[85vh] h-full w-full flex justify-center items-center'>
 		      <div>

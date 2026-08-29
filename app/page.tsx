@@ -26,7 +26,7 @@ export default async function HomePage() {
     <>
     <div className={styles.container}>
 
-      <main className={'bg-gradient-[-45deg] from-eggblue to-slategray'}>
+      <main className={'bg-linear-[-45deg] from-eggblue to-slategray'}>
         <Navbar path={'/'}/>
         <ParticlesBackground/>
 	<div className='lg:h-20'></div>
