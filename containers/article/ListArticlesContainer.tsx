@@ -122,7 +122,7 @@ export default function ArticleContainer() {
                     alt={article.title + " thumbnail"}
                     width={320}
                     height={200}
-                    objectFit={"cover"}
+                    className="object-cover"
                   />
                 </div>
                 <div className={"flex-1 flex flex-col justify-between"}>

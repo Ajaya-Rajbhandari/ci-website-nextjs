@@ -10,7 +10,7 @@ export default function TopBlog(){
 
   return(
     <div className={styles["top-blog-container"]}>
-      <Image alt='top blog image' src="/travel-world.jpg" width={700} height={400} objectFit="fill" />
+      <Image alt='top blog image' src="/travel-world.jpg" width={700} height={400} className="object-fill" />
 
       <div style={{ width: "30px"}}></div>                
       <div className={styles["info-container"]}>

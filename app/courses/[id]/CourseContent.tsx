@@ -35,9 +35,9 @@ export default function CourseContent({ course }: { course: Course }) {
                   ? "/computer_course_cover_2.jpg"
                   : course.coverImg
               }
-              width="100"
-              height="100"
-              objectPosition={"center"}
+              width={100}
+              height={100}
+              className="object-center"
             />
           </div>
           <div className={styles.containerDivider}>
