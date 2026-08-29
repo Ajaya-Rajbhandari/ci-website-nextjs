@@ -44,3 +44,6 @@ emacs_backtrace.txt
 *.swp
 *.swo
 *~
+
+# typescript incremental build cache
+*.tsbuildinfo
