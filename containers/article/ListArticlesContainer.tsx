@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { useContext, useState, useEffect } from "react";
 import { useQuery, useMutation, useInfiniteQuery } from "@tanstack/react-query";

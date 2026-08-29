@@ -1,7 +1,9 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 
 import styles from "../styles/components/Navbar.module.css";
 import Marginer from "../components/utils/Marginer";
@@ -35,6 +37,8 @@ interface NavListProps {
 }
 
 export default function Navbar({ path }: { path?: string }) {
+  // next/navigation has no singleton Router export, so this is now a hook.
+  const router = useRouter();
   const isDesktop = useMediaQuery({ minWidth: SCREENS.lg });
   const [showMenu, setShowMenu] = useState(false);
   const { user, userData, logout } = useAuth();
@@ -44,13 +48,13 @@ export default function Navbar({ path }: { path?: string }) {
     {
       name: "Profile",
       onClick: () => {
-        Router.push("/profile/" + user?.uid);
+        router.push("/profile/" + user?.uid);
       },
     },
     {
       name: "Dashboard",
       onClick: () => {
-        Router.push("/dashboard");
+        router.push("/dashboard");
       },
     },
     {

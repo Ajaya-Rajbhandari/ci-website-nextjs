@@ -1,3 +1,5 @@
+'use client';
+
 import styles from '../../styles/components/blog/topblog.module.css';
 import Image from 'next/image';
 import Marginer from '../../components/utils/Marginer';

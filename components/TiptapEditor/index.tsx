@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useImperativeHandle, type ReactNode, type RefObject } from 'react';
 import { useEditor, EditorContent, type Editor } from '@tiptap/react';
 

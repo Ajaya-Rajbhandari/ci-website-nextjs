@@ -1,3 +1,5 @@
+'use client';
+
 import Particles, { ParticlesProvider } from '@tsparticles/react';
 import { loadFull } from 'tsparticles';
 

@@ -1,3 +1,5 @@
+'use client';
+
 export default function Marginer(props: { horizontal?: string; vertical?: string }){
   return (
     <div style={{

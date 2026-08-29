@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { sanityClient } from './client';
 import { siteSettingsQuery } from './queries';

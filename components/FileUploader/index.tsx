@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useRef } from 'react';
 import { RxCross1 } from 'react-icons/rx';

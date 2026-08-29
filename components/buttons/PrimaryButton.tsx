@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './primary_button.module.css';
 import { AiFillEye } from 'react-icons/ai';
 

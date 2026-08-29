@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import styles from './coursecard.module.css';
 import Marginer from '../../components/utils/Marginer';

@@ -1,3 +1,5 @@
+'use client';
+
 import PuffLoader from 'react-spinners/PuffLoader';
 
 export default function LoadingScreen() {

@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from "react";
 import { homePageFallback } from '../../lib/sanity/fallbacks';
 

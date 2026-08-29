@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -66,7 +68,7 @@ function FirebaseBlogCard({ blog }: { blog: BlogListItem }) {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      let res = await fetch('api/users/' + blog.writtenBy);
+      let res = await fetch('/api/users/' + blog.writtenBy);
       let user = await res.json();
       setUserData(user);
       setLoading(false);

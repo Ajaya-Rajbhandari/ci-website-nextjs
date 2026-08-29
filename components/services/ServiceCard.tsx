@@ -1,3 +1,5 @@
+'use client';
+
 export default function ServiceCard(props: { title: React.ReactNode; children?: React.ReactNode }){
 
   return(

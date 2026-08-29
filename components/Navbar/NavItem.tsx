@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 
 export default function NavItem({ path, to, label }: { path?: string; to: string; label: React.ReactNode }){

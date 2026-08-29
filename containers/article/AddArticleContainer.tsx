@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useContext, useCallback } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";

@@ -1,3 +1,5 @@
+'use client';
+
 import { articleBodyToHtml } from '../../lib/editor/serialize';
 import type { ArticleBody } from '../../types';
 

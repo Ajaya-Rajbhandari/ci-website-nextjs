@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useState } from 'react';
 import ListArticlesContainer from './ListArticlesContainer';
 import AddArticleContainer from './AddArticleContainer';

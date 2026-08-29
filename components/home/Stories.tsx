@@ -1,3 +1,5 @@
+'use client';
+
 import ReactPlayer from 'react-player';
 import { homePageFallback } from '../../lib/sanity/fallbacks';
 

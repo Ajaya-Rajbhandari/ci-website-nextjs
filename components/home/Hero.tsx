@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { BsChevronDoubleDown } from 'react-icons/bs';
 import { homePageFallback } from '../../lib/sanity/fallbacks';
